@@ -1,24 +1,37 @@
+// Menus.js
 import React from "react";
-import { Col, Card } from "react-bootstrap";
+import { Col, Card, Button } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
 
-const Menus = ({ menu }) => {
-  // Cek apakah menu.category ada
-  const categoryName = menu.category ? menu.category.nama.toLowerCase() : "default";
-
+const Menus = ({ menu, masukKeranjang }) => {
   return (
     <Col md={4} xs={6} className="mb-4">
-      <Card className="shadow" style={{ width: "18rem" }}>
+      <Card className="shadow h-100">
+        {/* Gambar produk */}
         <Card.Img
-          variant="top"
-          src={`/images/${categoryName}/${menu.gambar}`}
-          alt={menu.nama}
+            variant="top"
+            src={"images/" + menu.category.nama.toLowerCase()+"/"+menu.gambar}
+            alt={menu.nama}
+            style={{ height: "180px", objectFit: "cover" }}
         />
-        <Card.Body>
-          <Card.Title>
-            {menu.nama} ({menu.kode})
-          </Card.Title>
-          <Card.Text>Rp. {numberWithCommas(menu.harga)}</Card.Text>
+
+
+        {/* Info produk */}
+        <Card.Body className="d-flex flex-column">
+          <Card.Title className="fw-bold">{menu.nama}</Card.Title>
+          <Card.Subtitle className="text-muted mb-2">Kode: {menu.kode}</Card.Subtitle>
+          <Card.Text className="text-success fw-semibold">
+            Rp. {numberWithCommas(menu.harga)}
+          </Card.Text>
+
+          {/* Tombol Tambah ke Keranjang */}
+          <Button
+            variant="primary"
+            className="mt-auto"
+            onClick={() => masukKeranjang(menu)}
+          >
+            Tambah ke Keranjang
+          </Button>
         </Card.Body>
       </Card>
     </Col>

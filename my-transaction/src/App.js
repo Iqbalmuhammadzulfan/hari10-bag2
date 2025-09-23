@@ -1,71 +1,209 @@
 // App.js
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import NavbarComp from "./component/NavbarComp";
-import { Hasil, ListCategory, Menus } from "./component";
+import React, { Component } from "react";
+import { Row, Col, Container } from "react-bootstrap";
+import { Hasil, ListCategory, Menus, NavbarComp } from "./component";
 import { API_URL } from "./utils/constants";
-import { Container, Row } from "react-bootstrap";
+import axios from "axios";
+import swal from "sweetalert";
 
-function App() {
-  const [products, setProducts] = useState([]);   // state untuk simpan produk
-  const [loading, setLoading] = useState(true);   // state loading
-  const [error, setError] = useState(null);       // state error
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menus: [],
+      kategoriYangDipilih: "Semua",
+      keranjang: [],
+    };
+  }
 
-  useEffect(() => {
-    fetch(`${API_URL}/products`)   // endpoint sesuai db.json
+  componentDidMount() {
+    this.getProductsByCategory(this.state.kategoriYangDipilih);
+    this.getKeranjang();
+  }
+
+  // Ambil produk
+  getProductsByCategory = (categoryName) => {
+    axios
+      .get(API_URL + "products")
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Gagal fetch data dari server");
+        let menus = res.data;
+        if (categoryName !== "Semua") {
+          menus = menus.filter(
+            (item) =>
+              item.category &&
+              item.category.nama.toLowerCase() === categoryName.toLowerCase()
+          );
         }
-        return res.json();
+        this.setState({ menus });
       })
-      .then((data) => {
-        console.log("DATA BACKEND:", data);
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        setError(err.message);
-        setLoading(false);
+      .catch((error) => {
+        console.error("❌ Error ambil produk:", error);
       });
-  }, []);
+  };
 
-  if (loading) {
-    return <h2>Loading data...</h2>;
-  }
+  // Ambil keranjang
+  getKeranjang = () => {
+    axios
+      .get(API_URL + "keranjang")
+      .then((res) => {
+        this.setState({ keranjang: res.data });
+      })
+      .catch((error) => {
+        console.error("❌ Error ambil keranjang:", error);
+      });
+  };
 
-  if (error) {
-    return <h2 style={{ color: "red" }}>Error: {error}</h2>;
-  }
+  changeCategory = (value) => {
+    this.setState({ kategoriYangDipilih: value, menus: [] });
+    this.getProductsByCategory(value);
+  };
 
-  return (
-    <div className="App">
-      {/* Navbar */}
-      <NavbarComp />
+  masukKeranjang = (value) => {
+    axios
+      .get(`${API_URL}keranjang?produk.id=${value.id}`)
+      .then((res) => {
+        if (res.data.length === 0) {
+          const keranjangBaru = {
+            jumlah: 1,
+            total_harga: value.harga,
+            produk: value,
+          };
+          axios.post(`${API_URL}keranjang`, keranjangBaru).then(() => {
+            swal({
+              title: "Sukses!",
+              text: "Berhasil masuk keranjang! " + value.nama,
+              icon: "success",
+              button: false,
+              timer: 1200,
+            });
+            this.getKeranjang();
+          });
+        } else {
+          const keranjangUpdate = {
+            jumlah: res.data[0].jumlah + 1,
+            total_harga: res.data[0].total_harga + value.harga,
+            produk: value,
+          };
+          axios
+            .put(`${API_URL}keranjang/${res.data[0].id}`, keranjangUpdate)
+            .then(() => {
+              swal({
+                title: "Sukses!",
+                text: "Berhasil update keranjang! " + value.nama,
+                icon: "success",
+                button: false,
+                timer: 1200,
+              });
+              this.getKeranjang();
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("❌ Error masuk keranjang:", error);
+      });
+  };
 
-      <Container fluid>
-        <Row>
-          {/* Kategori (kiri) */}
-          <ListCategory />
+  // Checkout: pindahkan keranjang ke pesanan
+  checkout = () => {
+    const { keranjang } = this.state;
 
-          {/* Daftar Produk (tengah) */}
-          <div className="col-md-6 mt-2">
-            <h4><strong>Daftar Produk</strong></h4>
-            <hr />
+    if (keranjang.length === 0) {
+      swal("Info", "Keranjang masih kosong!", "info");
+      return;
+    }
+
+    const promises = keranjang.map((item) =>
+      axios.post(`${API_URL}pesanan`, item)
+    );
+
+    Promise.all(promises)
+      .then(() => {
+        const deletePromises = keranjang.map((item) =>
+          axios.delete(`${API_URL}keranjang/${item.id}`)
+        );
+        return Promise.all(deletePromises);
+      })
+      .then(() => {
+        swal("Sukses!", "Pesanan berhasil dibuat!", "success");
+        this.setState({ keranjang: [] });
+      })
+      .catch((error) => {
+        console.error("❌ Error checkout:", error);
+        swal("Error", "Checkout gagal!", "error");
+      });
+  };
+
+  // Hapus item keranjang
+  hapusKeranjang = (id) => {
+  axios.delete(`${API_URL}keranjang/${id}`)
+    .then(() => {
+      swal({
+        title: "Sukses!",
+        text: "Item berhasil dihapus dari keranjang",
+        icon: "success",
+        button: false,
+        timer: 1200,
+      });
+      this.setState({
+        keranjang: this.state.keranjang.filter(item => item.id !== id)
+      });
+    })
+    .catch(error => {
+      console.error("❌ Error hapus keranjang:", error);
+    });
+};
+
+
+  render() {
+    const { menus, kategoriYangDipilih, keranjang } = this.state;
+
+    return (
+      <div className="App">
+        <NavbarComp />
+        <div className="mt-3">
+          <Container fluid>
             <Row>
-              {products.map((menu) => (
-                <Menus key={menu.id} menu={menu} />
-              ))}
+              <ListCategory
+                changeCategory={this.changeCategory}
+                kategoriYangDipilih={kategoriYangDipilih}
+              />
+
+              <Col>
+                <h5>
+                  <strong>Daftar Produk - {kategoriYangDipilih}</strong>
+                </h5>
+                <hr />
+                <Row>
+                  {menus.length > 0 ? (
+                    menus.map((menu) => (
+                      <Menus
+                        key={menu.id}
+                        menu={menu}
+                        masukKeranjang={this.masukKeranjang}
+                      />
+                    ))
+                  ) : (
+                    <Col>
+                      <div className="text-center p-4 border rounded bg-light">
+                        <p className="mb-0 text-muted">
+                          Belum ada produk pada kategori{" "}
+                          <strong>{kategoriYangDipilih}</strong>
+                        </p>
+                      </div>
+                    </Col>
+                  )}
+                </Row>
+              </Col>
+
+              <Hasil
+                keranjangs={keranjang}
+                checkout={this.checkout}
+                hapusKeranjang={this.hapusKeranjang}
+              />
             </Row>
-          </div>
-
-          {/* Hasil (kanan) */}
-          <Hasil />
-        </Row>
-      </Container>
-    </div>
-  );
+          </Container>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;
