@@ -1,7 +1,10 @@
+// App.js
 import React, { useState, useEffect } from "react";
-import './App.css';
-import NavbarComp from './component/NavbarComp';
+import "./App.css";
+import NavbarComp from "./component/NavbarComp";
+import { Hasil, ListCategory, Menus } from "./component";
 import { API_URL } from "./utils/constants";
+import { Container, Row } from "react-bootstrap";
 
 function App() {
   const [products, setProducts] = useState([]);   // state untuk simpan produk
@@ -38,15 +41,29 @@ function App() {
 
   return (
     <div className="App">
+      {/* Navbar */}
       <NavbarComp />
-      <h1>Daftar Produk</h1>
-      <ul>
-        {products.map((item) => (
-          <li key={item.id}>
-            {item.nama} - Rp {item.harga}
-          </li>
-        ))}
-      </ul>
+
+      <Container fluid>
+        <Row>
+          {/* Kategori (kiri) */}
+          <ListCategory />
+
+          {/* Daftar Produk (tengah) */}
+          <div className="col-md-6 mt-2">
+            <h4><strong>Daftar Produk</strong></h4>
+            <hr />
+            <Row>
+              {products.map((menu) => (
+                <Menus key={menu.id} menu={menu} />
+              ))}
+            </Row>
+          </div>
+
+          {/* Hasil (kanan) */}
+          <Hasil />
+        </Row>
+      </Container>
     </div>
   );
 }
