@@ -1,21 +1,21 @@
 {
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "nama": "Makanan"
     },
     {
-      "id": 2,
+      "id": "2",
       "nama": "Minuman"
     },
     {
-      "id": 3,
+      "id": "3",
       "nama": "Cemilan"
     }
   ],
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "kode": "K-01",
       "nama": "Sate Ayam",
       "harga": 16000,
@@ -27,7 +27,7 @@
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "kode": "K-02",
       "nama": "Nasi Goreng",
       "harga": 14000,
@@ -39,7 +39,7 @@
       }
     },
     {
-      "id": 3,
+      "id": "3",
       "kode": "K-03",
       "nama": "Nasi Rames",
       "harga": 12000,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "id": 4,
+      "id": "4",
       "kode": "K-04",
       "nama": "Lontong Kari",
       "harga": 18000,
@@ -63,7 +63,7 @@
       }
     },
     {
-      "id": 5,
+      "id": "5",
       "kode": "K-05",
       "nama": "Mie Goreng",
       "harga": 13000,
@@ -75,7 +75,7 @@
       }
     },
     {
-      "id": 6,
+      "id": "6",
       "kode": "K-06",
       "nama": "Bakso",
       "harga": 10000,
@@ -87,7 +87,7 @@
       }
     },
     {
-      "id": 7,
+      "id": "7",
       "kode": "K-07",
       "nama": "Mie Ayam Bakso",
       "harga": 14000,
@@ -99,7 +99,7 @@
       }
     },
     {
-      "id": 8,
+      "id": "8",
       "kode": "K-08",
       "nama": "Pangsit 6",
       "harga": 5000,
@@ -111,7 +111,7 @@
       }
     },
     {
-      "id": 9,
+      "id": "9",
       "kode": "K-09",
       "nama": "Kentang Goreng",
       "harga": 5000,
@@ -123,7 +123,7 @@
       }
     },
     {
-      "id": 10,
+      "id": "10",
       "kode": "K-10",
       "nama": "Burger",
       "harga": 15000,
@@ -135,7 +135,7 @@
       }
     },
     {
-      "id": 11,
+      "id": "11",
       "kode": "K-11",
       "nama": "Coffe Late",
       "harga": 15000,
@@ -147,7 +147,7 @@
       }
     },
     {
-      "id": 12,
+      "id": "12",
       "kode": "K-12",
       "nama": "Es Jeruk",
       "harga": 7000,
@@ -159,7 +159,7 @@
       }
     },
     {
-      "id": 13,
+      "id": "13",
       "kode": "K-13",
       "nama": "Es Teh",
       "harga": 5000,
@@ -171,7 +171,7 @@
       }
     },
     {
-      "id": 14,
+      "id": "14",
       "kode": "K-14",
       "nama": "Teh Hangat",
       "harga": 3000,
@@ -186,79 +186,11 @@
   "keranjang": [],
   "pesanan": [
     {
-      "id": "e5ca",
-      "jumlah": 1,
-      "total_harga": 16000,
-      "produk": {
-        "id": 1,
-        "kode": "K-01",
-        "nama": "Sate Ayam",
-        "harga": 16000,
-        "is_ready": true,
-        "gambar": "sate-ayam.jpg",
-        "category": {
-          "id": 1,
-          "nama": "Makanan"
-        }
-      }
-    },
-    {
-      "id": "e8f2",
-      "jumlah": 1,
-      "total_harga": 14000,
-      "produk": {
-        "id": 2,
-        "kode": "K-02",
-        "nama": "Nasi Goreng",
-        "harga": 14000,
-        "is_ready": true,
-        "gambar": "nasi-goreng.jpg",
-        "category": {
-          "id": 1,
-          "nama": "Makanan"
-        }
-      }
-    },
-    {
-      "id": "5bc0",
-      "jumlah": 1,
-      "total_harga": 16000,
-      "produk": {
-        "id": 1,
-        "kode": "K-01",
-        "nama": "Sate Ayam",
-        "harga": 16000,
-        "is_ready": true,
-        "gambar": "sate-ayam.jpg",
-        "category": {
-          "id": 1,
-          "nama": "Makanan"
-        }
-      }
-    },
-    {
-      "id": "c38b",
-      "jumlah": 1,
-      "total_harga": 14000,
-      "produk": {
-        "id": 2,
-        "kode": "K-02",
-        "nama": "Nasi Goreng",
-        "harga": 14000,
-        "is_ready": true,
-        "gambar": "nasi-goreng.jpg",
-        "category": {
-          "id": 1,
-          "nama": "Makanan"
-        }
-      }
-    },
-    {
-      "id": "a94e",
+      "id": "9519",
       "jumlah": 1,
       "total_harga": 12000,
       "produk": {
-        "id": 3,
+        "id": "3",
         "kode": "K-03",
         "nama": "Nasi Rames",
         "harga": 12000,
@@ -268,58 +200,134 @@
           "id": 1,
           "nama": "Makanan"
         }
-      }
+      },
+      "tanggal": "2025-09-24T08:38:28.580Z"
     },
     {
-      "id": "0244",
+      "id": "2dd3",
+      "jumlah": 1,
+      "total_harga": 16000,
+      "produk": {
+        "id": "1",
+        "kode": "K-01",
+        "nama": "Sate Ayam",
+        "harga": 16000,
+        "is_ready": true,
+        "gambar": "sate-ayam.jpg",
+        "category": {
+          "id": 1,
+          "nama": "Makanan"
+        }
+      },
+      "tanggal": "2025-09-24T08:38:28.581Z"
+    },
+    {
+      "id": "eab8",
+      "jumlah": 1,
+      "total_harga": 14000,
+      "produk": {
+        "id": "2",
+        "kode": "K-02",
+        "nama": "Nasi Goreng",
+        "harga": 14000,
+        "is_ready": true,
+        "gambar": "nasi-goreng.jpg",
+        "category": {
+          "id": 1,
+          "nama": "Makanan"
+        }
+      },
+      "tanggal": "2025-09-24T08:38:28.581Z"
+    },
+    {
+      "id": "17d6",
       "jumlah": 2,
-      "total_harga": 32000,
+      "total_harga": 30000,
       "produk": {
-        "id": 1,
-        "kode": "K-01",
-        "nama": "Sate Ayam",
-        "harga": 16000,
+        "id": "11",
+        "kode": "K-11",
+        "nama": "Coffe Late",
+        "harga": 15000,
         "is_ready": true,
-        "gambar": "sate-ayam.jpg",
+        "gambar": "coffe.jpg",
         "category": {
-          "id": 1,
-          "nama": "Makanan"
+          "id": 2,
+          "nama": "Minuman"
         }
-      }
+      },
+      "tanggal": "2025-09-24T08:48:31.972Z"
     },
     {
-      "id": "8795",
+      "id": "9b0e",
       "jumlah": 1,
-      "total_harga": 14000,
+      "total_harga": 7000,
       "produk": {
-        "id": 2,
-        "kode": "K-02",
-        "nama": "Nasi Goreng",
-        "harga": 14000,
+        "id": "12",
+        "kode": "K-12",
+        "nama": "Es Jeruk",
+        "harga": 7000,
         "is_ready": true,
-        "gambar": "nasi-goreng.jpg",
+        "gambar": "esjeruk.jpg",
         "category": {
-          "id": 1,
-          "nama": "Makanan"
+          "id": 2,
+          "nama": "Minuman"
         }
-      }
+      },
+      "tanggal": "2025-09-24T08:48:31.973Z"
     },
     {
-      "id": "6bac",
+      "id": "fb79",
       "jumlah": 1,
-      "total_harga": 12000,
+      "total_harga": 3000,
       "produk": {
-        "id": 3,
-        "kode": "K-03",
-        "nama": "Nasi Rames",
-        "harga": 12000,
+        "id": "14",
+        "kode": "K-14",
+        "nama": "Teh Hangat",
+        "harga": 3000,
         "is_ready": true,
-        "gambar": "nasi-rames.jpg",
+        "gambar": "teh.jpg",
+        "category": {
+          "id": 2,
+          "nama": "Minuman"
+        }
+      },
+      "tanggal": "2025-09-24T08:48:31.973Z"
+    },
+    {
+      "id": "4d78",
+      "jumlah": 2,
+      "total_harga": 10000,
+      "produk": {
+        "id": "9",
+        "kode": "K-09",
+        "nama": "Kentang Goreng",
+        "harga": 5000,
+        "is_ready": true,
+        "gambar": "kentang.jpg",
+        "category": {
+          "id": 3,
+          "nama": "Cemilan"
+        }
+      },
+      "tanggal": "2025-09-24T08:51:28.644Z"
+    },
+    {
+      "id": "c891",
+      "jumlah": 3,
+      "total_harga": 54000,
+      "produk": {
+        "id": "4",
+        "kode": "K-04",
+        "nama": "Lontong Kari",
+        "harga": 18000,
+        "is_ready": true,
+        "gambar": "lontong-kari.jpg",
         "category": {
           "id": 1,
           "nama": "Makanan"
         }
-      }
+      },
+      "tanggal": "2025-09-24T08:51:53.251Z"
     }
   ]
 }

@@ -1,12 +1,14 @@
-// Hasil.js
 import React from "react";
 import { Col, ListGroup, Badge, Card, Button } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Hasil = ({ keranjangs, checkout, hapusKeranjang }) => {
   return (
     <Col md={3} className="mt-3">
-      <h5 className="fw-bold">Keranjang</h5>
+      <h5 className="fw-bold">
+        <FaShoppingCart style={{ marginRight: "8px" }} /> Keranjang
+      </h5>
       <hr />
 
       {keranjangs.length > 0 ? (
@@ -26,10 +28,12 @@ const Hasil = ({ keranjangs, checkout, hapusKeranjang }) => {
                   <Badge bg="success" pill>
                     Rp. {numberWithCommas(item.total_harga)}
                   </Badge>
-                  <Button
-                    variant="danger"
+
+                  {/* ✅ hapus this.props */}
+                  <Button 
+                    variant="danger" 
                     size="sm"
-                    onClick={() => hapusKeranjang(item.id)}
+                    onClick={() => hapusKeranjang(item)} 
                   >
                     Hapus
                   </Button>

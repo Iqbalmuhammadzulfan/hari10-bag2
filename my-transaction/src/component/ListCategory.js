@@ -1,6 +1,8 @@
 // ListCategory.js
 import React from "react";
 import { Col, ListGroup } from "react-bootstrap";
+import { FaList } from "react-icons/fa";
+
 
 const ListCategory = ({ changeCategory, kategoriYangDipilih }) => {
   // ✅ tambahkan kategori "Semua"
@@ -8,7 +10,9 @@ const ListCategory = ({ changeCategory, kategoriYangDipilih }) => {
 
   return (
     <Col md={2} className="mb-3">
-      <h5 className="fw-bold">Kategori</h5>
+      <h5 className="fw-bold">
+        <FaList style={{ marginRight: "8px" }} /> Kategori
+      </h5>
       <hr />
       <ListGroup>
         {categories.map((category) => (
