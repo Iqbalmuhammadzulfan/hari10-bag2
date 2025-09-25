@@ -4,6 +4,7 @@ import { NavbarComp } from "./component";
 import Home from "./pages/Home";
 import Sukses from "./pages/Sukses";
 import RekapData from "./pages/RekapData";
+import Stok from "./pages/Stok";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" component={Home} exact />
           <Route path="/sukses" component={Sukses} exact />
           <Route path="/rekap" component={RekapData} exact /> {/* 🔑 route baru */}
+          <Route path="/stok" component={Stok} exact /> {/* 🔑 route baru */}
         </Switch>
       </main>
     </BrowserRouter>

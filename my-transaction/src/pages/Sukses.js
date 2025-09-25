@@ -11,25 +11,28 @@ export default class Sukses extends Component {
       .then((res) => {
         const keranjangs = res.data;
 
-        keranjangs.map((item) => {
-          // Buat data pesanan baru
+        // buat id unik untuk 1 transaksi
+        const transaksiId = Date.now().toString();
+
+        keranjangs.forEach((item) => {
           const newPesanan = {
+            transaksiId, // semua produk dalam 1 checkout punya transaksiId sama
             jumlah: item.jumlah,
             total_harga: item.total_harga,
             produk: item.produk,
             tanggal: new Date().toISOString(), // timestamp realtime
           };
 
-          // Simpan ke pesanan
+          // simpan ke pesanan
           axios
             .post(API_URL + "pesanan", newPesanan)
             .then((res) => {
               console.log("✅ Pesanan tersimpan:", res.data);
 
-              // Hapus dari keranjang setelah masuk pesanan
+              // hapus item dari keranjang
               return axios.delete(API_URL + "keranjang/" + item.id);
             })
-            .then((res) => console.log("🗑️ Keranjang terhapus:", res.data))
+            .then(() => console.log("🗑️ Keranjang terhapus:", item.id))
             .catch((error) =>
               console.error("❌ Error proses checkout:", error)
             );

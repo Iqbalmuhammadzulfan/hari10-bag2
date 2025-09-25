@@ -10,21 +10,8 @@ export default function RekapData() {
     axios
       .get(API_URL + "pesanan")
       .then((res) => {
-        // Grouping berdasarkan transaksiId
-        const grouped = res.data.reduce((acc, item) => {
-          const id = item.transaksiId || "tanpa-id";
-          if (!acc[id]) {
-            acc[id] = {
-              transaksiId: id,
-              tanggal: item.tanggal,
-              total: 0,
-            };
-          }
-          acc[id].total += item.total_harga;
-          return acc;
-        }, {});
-
-        setRekap(Object.values(grouped));
+        // langsung pakai data tanpa di-group
+        setRekap(res.data);
       })
       .catch((err) => console.error("❌ Error fetching rekap:", err));
   }, []);
@@ -41,16 +28,18 @@ export default function RekapData() {
             <thead>
               <tr>
                 <th>No</th>
+                <th>ID Transaksi</th>
                 <th>Tanggal</th>
                 <th>Total Pembelian</th>
               </tr>
             </thead>
             <tbody>
               {rekap.map((trx, index) => (
-                <tr key={trx.transaksiId}>
+                <tr key={trx.id}>
                   <td>{index + 1}</td>
+                  <td>{trx.transaksiId || "-"}</td>
                   <td>{new Date(trx.tanggal).toLocaleString()}</td>
-                  <td>Rp {trx.total.toLocaleString()}</td>
+                  <td>Rp {trx.total_harga.toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
